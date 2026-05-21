@@ -20,35 +20,8 @@ const currentFilter = ref("All Competitions");
 const error = ref(null)
 const loading = ref(true)
 
-const base = `https://mc-api.dribl.com/api/fixtures?date_range=default`;
-const seasoncode = "nPmrj2rmow";
-// const competitionCode = "wOmejBq1N0";
-// const leagueCode = "PmjBD6aAmZ";
-const clubCode = "k2KpRw5zmY";
-const fvCode = "w8zdBWPmBX";
-const url = `${base}&season=${seasoncode}&club=${clubCode}&tenant=${fvCode}&timezone=Australia%2FSydney`;
 const fvBaseUrl = "https://fv.dribl.com";
 
-async function fetchData(fixturesUrl: string) {
-    try {
-        const response = await fetch(fixturesUrl)
-        if (!response.ok) {
-            throw new Error('Network response was not ok')
-        } else {
-            const fixtures = await response.json();
-            allFixtures.push(...fixtures.data);
-            data.value = fixtures.data;
-
-            // listComps(fixtures.data);
-
-        }
-
-    } catch (err: any) {
-        error.value = err.message
-    } finally {
-        loading.value = false
-    }
-}
 
 function dayConvert(fixturedate: string) {
     const fixtureDate = new Date(fixturedate);
@@ -85,28 +58,30 @@ function listComps(fixtures: any[]) {
     comps.value = competitions.toSorted()
 }
 */
-const filterComps = (filter: string | Array<string>) => {
-    console.log(filter)
-    let currentSelection = selectedComps.value;
 
-    if (Array.isArray(filter)) {
-        console.log('array')
+function listComps(fixtures: any[]) {
+    const competitions: any = [];
+    for (let index = 0; index < fixtures.length; index++) {
+        const fixture = fixtures[index];
+        let compCheck = competitions.filter((c: any) => {
+            if (c === fixture.attributes.competition_name) {
+                return c;
+            }
+        })
 
-
-
-
-    } else {
-        console.log('string')
-
-
+        if (compCheck.length === 0) {
+            competitions.push(fixture.attributes.competition_name)
+        }
 
     }
 
-    /*
+    comps.value = competitions.toSorted()
+}
+const filterComps = (filter: string) => {
         currentFilter.value = filter;
         if (filter === 'All Competitions') {
             data.value = allFixtures
-    
+   
         } else {
             const filtered = allFixtures.filter((f: any) => {
                 if (f.attributes.competition_name === filter) {
@@ -116,30 +91,23 @@ const filterComps = (filter: string | Array<string>) => {
             data.value = filtered
     
         }
-    
-        */
-
 }
 
 
 
-const selectedComp = (comp: any) => {
-    console.log(comp)
-    let currentSelection = allcomps.value;
-    console.log(currentSelection)
-
-    for (let index = 0; index < currentSelection.length; index++) {
-        const select = currentSelection[index];
-        if (comp.name === select.name) {
-            currentSelection[index].selected = true;
-        } else {
-            currentSelection[index].selected = false;
-        }
-
-    }
-
-
-
+const selectedComp = (fixtures:any[], comp: any) => {
+        let filteredFixtures:any[] = [];
+        fixtures.forEach((f: any) => {
+            const check = comp.filter((c: any) => {
+                if (f.attributes.competition_name === c) {
+                    return c
+                }
+            })
+            if (check.length > 0) {
+                filteredFixtures.push(f)
+            }
+        });
+        return filteredFixtures;
     // allcomps
 }
 
@@ -147,15 +115,37 @@ const selectedComp = (comp: any) => {
 onMounted(() => {
     const fixtureStore = useFixtureStore();
     fixtureStore.fetchInitialData();
-
-    console.log(fixtureStore.data);
-
     if (props.matches) {
         // filter fixtures
-    } 
+
+        /*
+        console.log(props.matches)
+        const filteredFixtures = selectedComp(fixtureStore.data, props.matches)
+        console.log(filteredFixtures)
+        listComps(filteredFixtures)
+        data.value = [];
+        data.value = filteredFixtures 
+        allFixtures.push(... filteredFixtures) 
+        */
+       fixtureStore.selectedComps(props.matches)
+       listComps(fixtureStore.data)
+       data.value = fixtureStore.data;
+       allFixtures.push(... fixtureStore.data)
+
+    } else {
+       //  let fixtureData = fixtureStore.allComps()
+       fixtureStore.allComps()
+
+       listComps(fixtureStore.data)
+       data.value = fixtureStore.alldata;
+       allFixtures.push(... fixtureStore.alldata)
+        
+    }
+    loading.value = false;
+
+   //  data.value = fixtureStore.data;
 
 
-    data.value = fixtureStore.data;
     /*
     fetchData(url)
 
@@ -182,6 +172,8 @@ onMounted(() => {
     <div v-else-if="error">Error: {{ error }}</div>
     <div v-else>
         <div>
+
+        
             <div class="p-3">
                 <h1 class="font-bold">Competitions</h1>
                 <span v-for="comp in comps" @click="filterComps(comp)"
@@ -194,6 +186,7 @@ onMounted(() => {
 
 
             </div>
+            <!-- 
             <div class="p-3">
                 <h1 class="font-bold">Competitions</h1>
                 <span v-for="comp in allcomps" @click="selectedComp(comp)"
@@ -206,11 +199,10 @@ onMounted(() => {
 
 
             </div>
+            -->
             <hr>
             <h1 class="font-bold p-3">Fixtures</h1>
-            <pre>
-                moo
-            </pre>
+
             <div v-for="fixture in data" :key="fixture.hash_id">
                 <div class="flex flex-row lg:px-7.5 w-full relative text-sm bg-white">
                     <div class="w-full flex flex-row items-center py-5.5 lg:py-8 px-3 border-color-1 border-b">
