@@ -7,6 +7,7 @@ const props = defineProps({
 const data = ref(null)
 const allFixtures: any[] = [];
 const comps = ref(["All Competitions", "Coles MiniRoos Mixed Saturday (U6 - U11)", "Coles MiniRoos Girls' Sunday (U6 - U11)", "Junior Girls Sunday (U12 - U18)", "Junior Mixed Sunday (U12 - U16)", "Junior Boys Sunday (U17 - U18)", "VETO Sports State League Men's"])
+/*
 const allcomps = ref([
     { name: "All Competitions", selected: true },
     { name: "Coles MiniRoos Mixed Saturday (U6 - U11)", selected: false },
@@ -16,6 +17,7 @@ const allcomps = ref([
     { name: "Junior Boys Sunday (U17 - U18)", selected: false },
     { name: "VETO Sports State League Men's", selected: false }])
 const selectedComps = ref(["All Competitions"]);
+*/
 const currentFilter = ref("All Competitions");
 const error = ref(null)
 const loading = ref(true)
@@ -94,7 +96,7 @@ const filterComps = (filter: string) => {
 }
 
 
-
+/*
 const selectedComp = (fixtures:any[], comp: any) => {
         let filteredFixtures:any[] = [];
         fixtures.forEach((f: any) => {
@@ -110,6 +112,7 @@ const selectedComp = (fixtures:any[], comp: any) => {
         return filteredFixtures;
     // allcomps
 }
+    */
 
 
 onMounted(() => {
