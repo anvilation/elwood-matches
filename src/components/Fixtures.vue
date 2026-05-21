@@ -115,9 +115,11 @@ const selectedComp = (fixtures:any[], comp: any) => {
     */
 
 
-onMounted(() => {
+
+
+onMounted(async() => {
     const fixtureStore = useFixtureStore();
-    fixtureStore.fetchInitialData();
+    await fixtureStore.fetchInitialData();
     if (props.matches) {
         // filter fixtures
 
@@ -139,12 +141,13 @@ onMounted(() => {
        //  let fixtureData = fixtureStore.allComps()
        fixtureStore.allComps()
 
-       listComps(fixtureStore.data)
+       listComps(fixtureStore.alldata)
        data.value = fixtureStore.alldata;
        allFixtures.push(... fixtureStore.alldata)
         
     }
-    loading.value = false;
+
+   loading.value = false;
 
    //  data.value = fixtureStore.data;
 
@@ -205,7 +208,6 @@ onMounted(() => {
             -->
             <hr>
             <h1 class="font-bold p-3">Fixtures</h1>
-
             <div v-for="fixture in data" :key="fixture.hash_id">
                 <div class="flex flex-row lg:px-7.5 w-full relative text-sm bg-white">
                     <div class="w-full flex flex-row items-center py-5.5 lg:py-8 px-3 border-color-1 border-b">

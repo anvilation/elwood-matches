@@ -20,7 +20,7 @@ export const useFixtureStore = defineStore('fixtureStore', {
                 throw new Error('Network response was not ok')
             } else {
                 const fixtures = await response.json();
-                console.log(`data returned`)
+                console.log(`useFixtureStore: data returned`)
                 console.log(fixtures.data)
                 this.alldata = fixtures.data;
                 this.loaded = true;
