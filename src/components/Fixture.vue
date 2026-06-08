@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // import { ref, onMounted } from 'vue'
+import Calendar from './Calendar.vue';
 const props = defineProps({
     fixture: null,
 })
@@ -29,8 +30,8 @@ function timeConvert(fixturedate: string) {
 <template>
 
     <div>
-        <div class="flex flex-row lg:px-[30px] w-full relative text-sm bg-white">
-            <div class="w-full flex flex-row items-center py-[22px] lg:py-8 px-3 border-color-1">
+        <div class="flex flex-row lg:px-7.5 w-full relative text-sm bg-white">
+            <div class="w-full flex flex-row items-center py-5.5 lg:py-8 lg:px-3 md:px-3 sm:px-0 border-color-1">
                 <div class="hidden lg:flex flex-col items-center w-36 pt-8">
                     <div class="text-level-1">
                         <span class="font-semibold">
@@ -124,9 +125,10 @@ function timeConvert(fixturedate: string) {
                             <div v-if="!fixture.attributes.competition_name.includes('MiniRoos')">
 
                             </div>
+                            <!-- Mobile Actions -->
                             <div v-if="!fixture.attributes.competition_name.includes('MiniRoos')">
 
-                                <!-- -->
+                                
                                 <div v-if="!fixture.attributes.bye_flag" class="flex lg:hidden">
                                     <span data-count="1" class="fa-stack">
                                         <v-icon label="Referee Allocated" title="Referee Allocated" name="gi-whistle"
@@ -169,7 +171,7 @@ function timeConvert(fixturedate: string) {
                                 </a>
                             </div>
                             <div>
-                                &nbsp;
+                                <Calendar :fixture="fixture" />
                             </div>
                         </div>
                     </div>
@@ -218,7 +220,9 @@ function timeConvert(fixturedate: string) {
 
                     <div class="flex flex-col items-center">
                         <span class="font-medium text-level-2 mt-4">{{ fixture.attributes.competition_name }} |
-                            {{ fixture.attributes.league_name }}</span>
+                            {{ fixture.attributes.league_name }}
+                        </span>
+
                         <div
                             class="flex flex-row justify-between w-100 mt-4.5 items-center font-normal text-level-3 text-level-3-anchor">
                             <div>
@@ -230,9 +234,13 @@ function timeConvert(fixturedate: string) {
                 <!-- END Bye Bye -->
 
                 <div class="hidden lg:flex w-[140px] h-full flex-col align-center items-center">
-                    <span class="text-level-1 font-semibold mb-8">
+                    <span class="text-level-1 font-semibold mb-6">
                         {{ fixture.attributes.full_round }}
                     </span>
+                    <div class="mb-4">
+                        <Calendar :fixture="fixture" />
+
+                    </div>
                     <div>
                         <a :href="`${fvBaseUrl}/matchcentre?m=${fixture.attributes.match_hash_id}`" target="_blank"
                             class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-black inset-ring inset-ring-gray-500/10 dark:bg-gray-400/10 dark:text-black  dark:inset-ring-gray-400/20"
@@ -244,5 +252,6 @@ function timeConvert(fixturedate: string) {
             </div>
         </div>
     </div>
+
 
 </template>
