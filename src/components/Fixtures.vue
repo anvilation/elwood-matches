@@ -134,6 +134,11 @@ onMounted(async() => {
                 <Fixture :fixture="fixture" />
 
             </div>
+            <div v-if="data.length === 0"  class="flex flex-col items-center  min-h-screen">
+                <h1 class="text-lg font-bold mb-4">No fixtures </h1>
+                <h3 class="text-center text-gray-600 max-w-md px-2">There are no matches available to display</h3>
+                
+            </div>
 
         </div>
 
