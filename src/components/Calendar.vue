@@ -72,7 +72,8 @@ const downloadIcs = () => {
 
 <template>
 
-    <button @click="downloadIcs">
+    <button @click="downloadIcs" class="bg-transparent hover:bg-red-700 text-gray-700 hover:text-white font-medium py-2 px-4 border border-gray-300 rounded transition duration-200"> 
+        <span>Download  </span>
         <v-icon name="co-calendar" class="svg-inline--fa fa-location-dot" />
     </button>
 

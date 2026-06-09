@@ -127,8 +127,6 @@ function timeConvert(fixturedate: string) {
                             </div>
                             <!-- Mobile Actions -->
                             <div v-if="!fixture.attributes.competition_name.includes('MiniRoos')">
-
-                                
                                 <div v-if="!fixture.attributes.bye_flag" class="flex lg:hidden">
                                     <span data-count="1" class="fa-stack">
                                         <v-icon label="Referee Allocated" title="Referee Allocated" name="gi-whistle"
@@ -148,30 +146,41 @@ function timeConvert(fixturedate: string) {
 
                             </div>
                             <div>
-                                <a :href="`https://maps.google.com/maps?z=10&amp;q=${fixture.attributes.ground_latitude}+${fixture.attributes.ground_longitude}`"
-                                    target="_blank" class="lg:mr-3" style="text-decoration: none;">
+                                <div>
+                                    <a :href="`https://maps.google.com/maps?z=10&amp;q=${fixture.attributes.ground_latitude}+${fixture.attributes.ground_longitude}`"
+                                        target="_blank" class="lg:mr-3" style="text-decoration: none;">
 
-                                    <v-icon name="co-location-pin" class="svg-inline--fa fa-location-dot" />
-                                    <!-- 
-                                    <svg aria-hidden="true"
-                                        focusable="false" data-prefix="fas" data-icon="location-dot" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                                        class="svg-inline--fa fa-location-dot">
-                                        <path fill="currentColor"
-                                            d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
-                                            class=""></path>
-                                    </svg>
-                                    -->
+                                        <v-icon name="co-location-pin" class="svg-inline--fa fa-location-dot" />
 
-                                </a>
-                                <a :href="`https://maps.google.com/maps?z=10&amp;q=${fixture.attributes.ground_latitude}+${fixture.attributes.ground_longitude}`"
-                                    target="_blank" class="text-decoration-none">
-                                    {{ fixture.attributes.ground_name }}<span> - {{
-                                        fixture.attributes.field_name }}</span>
-                                </a>
+                                    </a>
+                                    <a :href="`https://maps.google.com/maps?z=10&amp;q=${fixture.attributes.ground_latitude}+${fixture.attributes.ground_longitude}`"
+                                        target="_blank" class="text-decoration-none">
+                                        {{ fixture.attributes.ground_name }}<span> - {{
+                                            fixture.attributes.field_name }}</span>
+                                    </a>
+                                </div>
+
                             </div>
                             <div>
+
+                            </div>
+                        </div>
+                        <div>
+
+                            <div class="lg:hidden py-2 inline-flex rounded-md shadow-sm">
+                                <a :href="`${fvBaseUrl}/matchcentre?m=${fixture.attributes.match_hash_id}`"
+                                    target="_blank"
+                                    class="inline-flex items-center -ml-px bg-transparent hover:bg-red-700 text-gray-700 hover:text-white font-medium py-2 px-4 border border-gray-300 rounded transition duration-200">
+                                    
+                                    <span>Match Centre  </span>
+                                    <span>
+                                        <v-icon name="gi-soccer-field" class="svg-inline--fa fa-location-dot" />
+                                    </span>
+
+                                </a>
                                 <Calendar :fixture="fixture" />
+
+
                             </div>
                         </div>
                     </div>
@@ -238,16 +247,31 @@ function timeConvert(fixturedate: string) {
                         {{ fixture.attributes.full_round }}
                     </span>
                     <div class="mb-4">
-                        <Calendar :fixture="fixture" />
+                        <a :href="`${fvBaseUrl}/matchcentre?m=${fixture.attributes.match_hash_id}`"
+                                    target="_blank"
+                                    class="inline-flex items-center -ml-px bg-transparent hover:bg-red-700 text-gray-700 hover:text-white font-medium py-2 px-4 border border-gray-300 rounded transition duration-200">
+                                    
+                                    <span>Match Centre  </span>
+                                    <span>
+                                        <v-icon name="gi-soccer-field" class="svg-inline--fa fa-location-dot" />
+                                    </span>
 
-                    </div>
-                    <div>
+                                </a>
+
+                                <!-- 
                         <a :href="`${fvBaseUrl}/matchcentre?m=${fixture.attributes.match_hash_id}`" target="_blank"
                             class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-black inset-ring inset-ring-gray-500/10 dark:bg-gray-400/10 dark:text-black  dark:inset-ring-gray-400/20"
                             v-if="!fixture.attributes.bye_flag">
                             <span class="font-medium text-center w-full">Match Centre</span>
                         </a>
+                        -->
                     </div>
+                    <div >
+                        <Calendar :fixture="fixture" />
+
+
+                    </div>
+                    
                 </div>
             </div>
         </div>

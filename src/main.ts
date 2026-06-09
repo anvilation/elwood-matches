@@ -4,9 +4,9 @@ import './style.css'
 import App from './App.vue'
 import router from './router'
 import { VueUmamiPlugin } from '@jaseeey/vue-umami-plugin';
-import {CoLocationPin , GiWhistle, FaBan, CoCalendar  } from "oh-vue-icons/icons"
+import {CoLocationPin , GiWhistle, FaBan, CoCalendar, GiSoccerField   } from "oh-vue-icons/icons"
 import { createPinia } from 'pinia'
-addIcons(CoLocationPin , GiWhistle, FaBan, CoCalendar  );
+addIcons(CoLocationPin , GiWhistle, FaBan, CoCalendar, GiSoccerField   );
 
 
 
