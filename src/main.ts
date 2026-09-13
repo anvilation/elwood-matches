@@ -28,6 +28,6 @@ app.use(VueUmamiPlugin(analyticsConfig));
 app.use(router)
 app.use(pinia)
 app.component("v-icon", OhVueIcon);
-app.mount('#app')
+app.mount('#elwoodcityscmatches')
 
 
