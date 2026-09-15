@@ -17,7 +17,7 @@ const router = createRouter({
     // TODO - add params for seniors, miniroos and juniors
     {
       path: '/fixtures',
-      name: 'home',
+      name: 'fixtures',
       component: AllFixtures,
     },
     {
