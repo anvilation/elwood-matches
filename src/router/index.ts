@@ -14,12 +14,19 @@ const router = createRouter({
       name: 'home',
       component: AllFixtures,
     },
-        {
+    // TODO - add params for seniors, miniroos and juniors
+    {
+      path: '/fixtures',
+      name: 'home',
+      component: AllFixtures,
+    },
+    {
       path: '/seniors',
       name: 'seniors',
       component: SeniorFixtures,
     },
-        {
+
+    {
       path: '/miniroos',
       name: 'miniroos',
       component: MiniRoosFixtures,
@@ -30,7 +37,7 @@ const router = createRouter({
       component: JuniorsFixtures,
     },
 
-    
+
     {
       path: '/:pathMatch(.*)*', // For Vue Router 4
       // path: '*', // For Vue Router 3
